@@ -119,6 +119,8 @@ for(i in (1:nrow(noNAData))[is.na(noNAData$steps)]){
     noNAData$steps[i] <- dailyAct[rownames(dailyAct)==intv, c("avg_steps")]
 }
 ```
+The piece of code above takes any interval with missing values, and searches the calculated mean value in the
+dataset stored in dailyAct, then it replaces de NA with the correspondin mean value.
 
 Summary of the original dataset:
 

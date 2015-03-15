@@ -1,8 +1,9 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
   html_document:
-    keep_md: true
+    keep_md: yes
+  pdf_document: default
 ---
 
 ## Init
@@ -75,6 +76,8 @@ for(i in (1:nrow(noNAData))[is.na(noNAData$steps)]){
 }
 
 ```
+The piece of code above takes any interval with missing values, and searches the calculated mean value in the
+dataset stored in dailyAct, then it replaces de NA with the correspondin mean value.
 
 Summary of the original dataset:
 ```{r}

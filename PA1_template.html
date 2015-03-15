@@ -132,6 +132,7 @@ for(i in (1:nrow(noNAData))[is.na(noNAData$steps)]){
     intv &lt;- noNAData$daytime[i]
     noNAData$steps[i] &lt;- dailyAct[rownames(dailyAct)==intv, c(&quot;avg_steps&quot;)]
 }</code></pre>
+<p>The piece of code above takes any interval with missing values, and searches the calculated mean value in the dataset stored in dailyAct, then it replaces de NA with the correspondin mean value.</p>
 <p>Summary of the original dataset:</p>
 <pre class="r"><code>summary(actData)</code></pre>
 <pre><code>##      steps             date               interval     
