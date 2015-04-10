@@ -17,6 +17,35 @@ time.padding <- function(time){
 }
 ```
 ## Loading and preprocessing the data
+
+To make it as reproducible as possible, this first part shows how to get the data or at least how it was obtained. First it is necessary to create the Data directory and extract the csv file as it is shown in the chunk below.
+
+```{r}
+dataURL <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+
+if(!file.exists('./Data')){
+    dir.create('./Data')
+}
+
+if(!file.exists('./Data/step_data.zip')){
+    osname <- Sys.info()[1]
+    if(osname == "windows"){
+        download.file(url = dataURL, 
+                      './Data/step_data.zip')
+    }else{
+        download.file(url = dataURL, 
+                      './Data/step_data.zip',
+                      method="curl")
+    }
+}
+
+if(!file.exists('./Data/activity.csv')){
+    unzip(zipfile = "Data/step_data.zip",files ="activity.csv", exdir="./Data")
+}
+```
+
+After getting the data the csv can be read.
+
 ```{r}
 actData <- read.csv("Data/activity.csv")
 actData <- transform(actData, 

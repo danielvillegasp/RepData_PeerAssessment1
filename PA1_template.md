@@ -13,6 +13,36 @@ time.padding <- function(time){
 ```
 ## Loading and preprocessing the data
 
+To make it as reproducible as possible, this first part shows how to get the data or at least how it was obtained. First it is necessary to create the Data directory and extract the csv file as it is shown in the chunk below.
+
+
+```r
+dataURL <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+
+if(!file.exists('./Data')){
+    dir.create('./Data')
+}
+
+if(!file.exists('./Data/step_data.zip')){
+    osname <- Sys.info()[1]
+    if(osname == "windows"){
+        download.file(url = dataURL, 
+                      './Data/step_data.zip')
+    }else{
+        download.file(url = dataURL, 
+                      './Data/step_data.zip',
+                      method="curl")
+    }
+}
+
+if(!file.exists('./Data/activity.csv')){
+    unzip(zipfile = "Data/step_data.zip",files ="activity.csv", exdir="./Data")
+}
+```
+
+After getting the data the csv can be read.
+
+
 ```r
 actData <- read.csv("Data/activity.csv")
 actData <- transform(actData, 
@@ -54,7 +84,7 @@ qplot(stepsDay, xlab="Steps", ylab="Frequency") + geom_histogram(colour="black",
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 ```r
 stepsMean
@@ -88,12 +118,12 @@ ggplot(dailyAct, aes(x=time, y=avg_steps)) + geom_line() + xlab("Time") + ylab("
 ```
 
 ```
-## Warning in data.frame(x = structure(1426426500, class = c("POSIXct",
+## Warning in data.frame(x = structure(1428586500, class = c("POSIXct",
 ## "POSIXt": row names were found from a short variable and have been
 ## discarded
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 ```r
 maxAvgInt
@@ -101,7 +131,7 @@ maxAvgInt
 
 ```
 ##                         time avg_steps
-## 08:35:00 2015-03-15 08:35:00  206.1698
+## 08:35:00 2015-04-09 08:35:00  206.1698
 ```
 The 5-minute interval which contains the maximum number of steps occurs at 08:35:00.
 This interval is marked with a red dot in the plot above.
@@ -191,7 +221,7 @@ qplot(stepsDay) + geom_histogram(colour="black",
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 ```r
 stepsMean
@@ -234,4 +264,4 @@ ggplot(combinedDailyAct, aes(x=time, y=avg_steps)) + geom_line() +facet_grid(day
     scale_x_datetime(breaks=date_breaks("3 hours"), labels=date_format("%H:%M")) 
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
